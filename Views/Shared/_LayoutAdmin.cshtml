@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DCG-Cars</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Minimal Bootstrap Theme">
+    <meta name="keywords" content="onepage,responsive,minimal,bootstrap,theme">
+    <meta name="author" content="">
+
+    <!-- CSS Files
+    ================================================== -->
+    <link rel="stylesheet" href="~/Content/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/jpreloader.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/animate.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/plugin.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.theme.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.transitions.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/style.css" type="text/css">
+    <link rel="stylesheet" href="~/demo/demo.css" type="text/css">
+
+    <!-- custom background -->
+    <link rel="stylesheet" href="~/Content/bg.css" type="text/css">
+    <!-- color scheme -->
+    <link rel="stylesheet" href="~/Content/color.css" type="text/css" id="colors">
+    <!-- revolution slider -->
+    <link rel="stylesheet" href="~/rs-plugin/css/settings.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/rev-settings.css" type="text/css">
+    <!-- load fonts -->
+    <link rel="stylesheet" href="~/fonts/font-awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="~/fonts/elegant_font/HTML_CSS/style.css" type="text/css">
+    <link rel="stylesheet" href="~/fonts/elegant_font/HTML_CSS/lte-ie7.js" type="text/css">
+</head>
+
+<body class="page-services">
+    <div id="wrapper">
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!-- mainmenu begin -->
+
+                        <nav class="nav navbar">
+                            <ul id="mainmenu">
+                                @if (Session["Taikhoanadmin"] != null) { 
+                                <li class="pull-right" >
+                                    
+                                        <a href="#">Chào mừng bạn @Session["Taikhoanadmin"]</a>
+                                    <ul class="btn btn-default" height="50px">
+                                        <li class="text-center" >
+                                            <a href="@Url.Action("DangXuat","Admin")" class="btn btn-default" height="100px"><i class="fa fa-sign-out">Đăng Xuất</i></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                } 
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- mainmenu close -->
+                    
+                </div>
+            </div>
+        </header>
+
+        <!-- subheader -->
+        <section id="section-slider" class="fullwidthbanner-container">
+            <img src="~/images/background/admin1.gif" style="width:100%; height:400px" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Have a good day!</h1>                     
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+            <!-- subheader close -->
+            <!-- content begin -->
+            <div id="content">
+                <div class="container">
+                    <div class="row">
+                        <div id="sidebar" class="col-md-3 wow fadeInUp">
+                            <ul id="services-list">
+                               
+                                <li><a href="@Url.Action("QLLoai", "Admin")">QL Loại</a></li>
+                                <li><a href="@Url.Action("QLNsx", "Admin")">QL NSX</a></li>
+                                @if (Convert.ToInt32(Session["AdminRole"]) == 2 || Convert.ToInt32(Session["AdminRole"]) == 0)
+                                {
+                                <li>
+                                    <a href="@Url.Action("Sanpham", "Admin")">Sản phẩm Info</a>
+                                </li>
+                                }
+                                @if ( Convert.ToInt32(Session["AdminRole"]) == 1 || Convert.ToInt32(Session["AdminRole"]) == 0)
+                                {
+                                <li><a href="@Url.Action("Xe", "Admin")">Xe Info</a></li>
+                                 }
+
+                                <li><a href="@Url.Action("DonHang", "Admin")">Đơn hàng info</a></li>
+                               @if (Convert.ToInt32(Session["AdminRole"]) == 0)
+                               {
+                                <li><a href="@Url.Action("DSAdmin", "Admin")">Admin Info</a></li>
+                               
+                                <li><a href="@Url.Action("QLUser", "Admin")">QL User</a></li>
+                               }
+                                <li><a href="@Url.Action("QLGiaodich", "Admin")">QL Giao dịch</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            @Html.Action("ViewCount","Visiter")
+                            @Html.Action("AdminCount", "Visiter")
+                            <table class="table">
+                                <tr>
+                                    
+                                    <th width="100%"> Đơn hàng bán được </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </table>   
+                            <img src="@Url.Action("MyChart","Visiter")" />
+                        </div>
+                        
+                    </div>
+                </div>
+                <div>
+                    @RenderBody()
+                </div>
+
+            </div>
+
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="~/images/logo.jpg" class="logo-small" alt=""><br>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="widget widget_recent_post">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Liên Hệ</h3>
+                            <div class="widget widget-address">
+                                <address>
+                                    <span>101 RedStreet </span>
+                                    <span><strong>Phone:</strong>911</span>
+                                    <span><strong>Fax:</strong>911</span>
+                                    <span><strong>Email 1:</strong><a href="mailto:buiquangductri@gmail.com">buiquangductri@gmail.com</a></span>
+                                    <span><strong>Email 2:</strong><a href="mailto:hakai.prince@gmail.com">hakai.prince@gmail.com</a></span>
+                                    <span><strong>Web:</strong><a href="#">http://car.somee.com</a></span>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="subfooter">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                &copy; Copyright 2015 - Archi by Designesia
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div class="social-icons">
+                                    <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                                    
+                                    <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer close -->
+        
+
+        <!-- style switcher
+        ================================================== -->
+ 
+
+        @*<div id="switcher">
+            <span class="custom-close"></span>
+            <span class="custom-show"></span>
+            <span class="sw-title">Header Style</span>
+            <select name="switcher" id="de-header">
+                <option value="opt-1" selected>Solid</option>
+                <option value="opt-2">Transparent</option>
+            </select>
+            <div class="clearfix"></div>
+            <span class="sw-title">Menu Style</span>
+            <select name="switcher" id="de-menu">
+                <option value="opt-1" selected>Dotted Separator</option>
+                <option value="opt-2">Line Separator</option>
+                <option value="opt-3">Circle Separator</option>
+                <option value="opt-4">Square Separator</option>
+                <option value="opt-5">Plus Separator</option>
+                <option value="opt-6">Strip Separator</option>
+                <option value="opt-0">No Separator</option>
+            </select>
+            <div class="clearfix"></div>
+            <span class="sw-title">Color :</span>
+            <ul id="de-color">
+                <li class="bg1"></li>
+                <li class="bg2"></li>
+                <li class="bg3"></li>
+                <li class="bg4"></li>
+                <li class="bg5"></li>
+                <li class="bg6"></li>
+                <li class="bg7"></li>
+                <li class="bg8"></li>
+                <li class="bg9"></li>
+                <li class="bg10"></li>
+            </ul>
+        </div>*@
+        <!-- Javascript Files
+        ================================================== -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jpreLoader.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.isotope.min.js"></script>
+    <script src="~/Scripts/easing.js"></script>
+    <script src="~/Scripts/jquery.flexslider-min.js"></script>
+    <script src="~/Scripts/jquery.scrollto.js"></script>
+    <script src="~/Scripts/owl.carousel.js"></script>
+    <script src="~/Scripts/jquery.countTo.js"></script>
+    <script src="~/Scripts/classie.js"></script>
+    <script src="~/Scripts/video.resize.js"></script>
+    <script src="~/Scripts/validation.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/enquire.min.js"></script>
+    <script src="~/Scripts/designesia.js"></script>
+    <script src="demo/demo.js"></script>
+        <!-- SLIDER REVOLUTION SCRIPTS  -->
+        <script type="text/javascript" src="~/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+        <script type="text/javascript" src="~/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+ 
+
+</body>
+</html>
