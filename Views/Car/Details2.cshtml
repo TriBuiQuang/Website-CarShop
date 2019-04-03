@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details2</title>
+</head>
+<body>
+    <div style="width:40%; text-align:center; padding:20px">
+        <h3>Thông tin chi tiết</h3>
+    </div>
+    <div>
+        <div style="width:60%; float:left; border-left: dotted 1px; border-color:azure; padding:20px">
+            <img src="~/Hinhsanpham/@Model.AnhBia" style="width:600px;height:400px" />
+        </div>
+        <div style="width:40%; float:left; padding:20px">
+            <h4 style="front-weight:bold; color:black; text-align: center">@Model.TenSP</h4>
+            <div align="center" border="1" style="color:black" width=450 height=100>
+                <p style="text-align:justify"><span style="front-weight:bold; color:black">Giá bán: </span> @String.Format("{0:0,0}", Model.GiaBan) VNĐ</p>
+            </div>
+               
+            </div>
+    </div>
+   
+    <div class="form-group" style="float:right; padding-top:50px; color:red" >
+        <a href="@Url.Action("ThemGiohang", "Giohang", new { @iMaSP=@Model.MaSP,@strURL=Request.Url.ToString()})">
+           <input type="submit" value="ĐẬT MUA" class="btn btn-default style=" style="background-color:red" />
+        </a>
+    </div>
+    <div class="fb-comments" style="align-content:center" data-href="http://localhost:59854/Car/" data-width="1200" data-numposts="5"></div>
+    <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '423172878128212',
+                    autoLogAppEvents: true,
+                    xfbml: true,
+                    version: 'v2.12'
+                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+    </script>
+    </div>
+</body>
+</html>

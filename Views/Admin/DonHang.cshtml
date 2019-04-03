@@ -1,0 +1,74 @@
+﻿@model PagedList.PagedList<Car.Models.DonHang>
+@using Car.Models
+@using PagedList.Mvc;
+
+@helper Truncate(string input, int length)
+{
+if (input.Length < length)
+{
+        @input
+}
+else
+{
+        @input.Substring(0, length)<text>....</text>
+}
+}
+
+@{
+    ViewBag.Title = "DonHang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <h2 style="align-content:center">Quản Lý Thông Tin Đơn Hàng</h2>
+
+  <form action="@Url.Action("Xoadh")" method="post">
+    <table class="table" border="1">
+        <tr style="align-content:center">
+            <th style="text-align:center" width="10%">Tình trạng giao hàng</th>
+            <th style="text-align:center" width="40%">Ngày đặt</th>
+            <th style="text-align:center" width="30%">Khách hàng</th>
+            <th style="text-align:center" width="10%"></th>
+
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @if (item.TinhTrangGiaoHang == false)
+                    { <p><b>Chưa giao</b> </p> }
+                    else
+                    {<p><b>giao</b> </p> }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayDat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
+                </td>
+                <td>@Html.ActionLink("Chi tiết", "ChitietDH", new { id = item.MaDH })|@Html.ActionLink("Sửa", "Suadonhang", new { id = item.MaDH })</td>
+
+                <td class="text-center">
+                    <input name="dsxoa" type="checkbox" value="@item.MaDH" />
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4"></td>
+            <td class="text-center">
+                <input type="submit" class="btn btn-danger btn-sm" value="Xóa"
+                       onclick="return confirm('Xác nhận xóa tất cả đã chọn?')" />
+            </td>
+        </tr>
+    </table>
+</form>
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("DonHang", new { page = page }))
+    </div>
+    <style>
+        .MenuTrang li {
+            display: inline;
+        }
+    </style>

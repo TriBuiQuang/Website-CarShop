@@ -1,0 +1,112 @@
+﻿@model PagedList.PagedList<Car.Models.Xe>
+@using Car.Models
+@using PagedList.Mvc;
+
+@helper Truncate(string input, int length)
+{   
+    if(input.Length< length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>....</text>
+    }
+}
+@{
+    ViewBag.Title = "Xe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="align-content:center">Thông Tin Chi Tiết Xe</h2>
+
+<p>
+    @Html.ActionLink("Thêm Mới", "Themmoixe")
+</p>
+<form action="@Url.Action("Delete2")" method="post">
+    <table class="table" border="1">
+        <tr style="align-content:center">
+            <th style="width:200px;text-align:center">Tên xe</th>
+            <th style="width:300px;text-align:center">Mô tả</th>
+            <th style="width:120px;text-align:center">Tình Trạng</th>
+            <th style="width:100px;text-align:center">Giá bán ($)</th>
+            <th style="width:120px;text-align:center">Ảnh bìa</th>
+            <th style="width:120px;text-align:center">Nhà SX </th>
+            <th style="width:120px;text-align:center">Năm SX </th>
+            <th style="width:120px;text-align:center">Thời gian BH </th>
+            <th style="width:120px;text-align:center">Số chỗ </th>
+            <th style="width:120px;text-align:center">Xuát xứ </th>
+            <th style="width:120px;text-align:center">Màu xe </th>
+            <th style="width:120px;text-align:center">Nhiên liệu </th>
+            <th style="width:120px;text-align:center">Hộp số </th>
+            <th style="width:200px;text-align:center"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tenxe)
+                </td>
+                <td>
+                    @Truncate(item.Mota, 100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TinhTrang)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gia)
+                </td>
+                <td>
+                    <img src="@Url.Content("~/Hinhsanpham/" + item.Anh)" style="height:100px ; width:130px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamSanXuat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGianBaoHanh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoCho)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.XuatXu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MauXe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhienLieu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HopSo)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Suaxe", new { id = item.Maxe })  
+                    @*@Html.ActionLink("Xóa", "Xoaxe", new { id = item.Maxe })*@
+                </td>
+                <td class="text-center">
+                    <input name="dsxoa" type="checkbox" value="@item.Maxe" />
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="13"></td>
+            <td class="text-center">
+                <input type="submit" class="btn btn-danger btn-sm" value="Xóa"
+                       onclick="return confirm('Xác nhận xóa tất cả đã chọn?')" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+ Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Xe", new { page = page }))
+    </div>
+    <style>
+        .MenuTrang li {
+            display: inline;
+        }
+    </style>

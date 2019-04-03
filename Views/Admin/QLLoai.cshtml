@@ -1,0 +1,57 @@
+﻿
+@model PagedList.PagedList<Car.Models.LoaiSP>
+@using Car.Models
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Quản lý loại";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Quản Lý Loại</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Themloai")
+</p>
+<p>
+    @using (Html.BeginForm("QLLoai", "Admin", FormMethod.Get))
+    {
+        <b>Search:</b>@Html.TextBox("search")<input type="submit" value="Tìm kiếm" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã loại
+        </th>
+        <th>
+            Tên Loại
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenLoai)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Sualoai", new { id=item.MaLoai }) |
+            @Html.ActionLink("Xoá", "Xoaloai", new { id=item.MaLoai })
+        </td>
+    </tr>
+}
+
+</table>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("QLLoai", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

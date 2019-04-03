@@ -1,0 +1,47 @@
+﻿
+@model PagedList.PagedList<Car.Models.NhaSanXuat>
+@using Car.Models
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "QLNsx";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QLNsx</h2>
+
+<p>
+    @Html.ActionLink("Create New", "ThemNsx")
+</p>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Tên nhà sx</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaNSX)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenNSX)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "SuaNsx", new { id=item.MaNSX }) |
+            @Html.ActionLink("Delete", "XoaNsx", new { id=item.MaNSX })
+        </td>
+    </tr>
+}
+
+</table>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("QLNsx", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

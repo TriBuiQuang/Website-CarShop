@@ -1,0 +1,74 @@
+﻿@model PagedList.PagedList<Car.Models.KhachHang>
+@using Car.Models
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Quản lý User";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Quản Lý User</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "ThemUser")
+</p>
+<p>
+    @using (Html.BeginForm("QLUser", "Admin", FormMethod.Get))
+    {
+        <b>Search:</b>@Html.TextBox("search")<input type="submit" value="Tìm kiếm" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tài Khoản
+        </th>
+        <th>
+            Pass
+        </th>
+        <th>
+            Họ tên
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            DienThoai
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Taikhoan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoTen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DienThoai)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "SuaUser", new { id=item.MaKH }) |
+            @Html.ActionLink("Delete", "XoaUser", new { id=item.MaKH })
+        </td>
+    </tr>
+}
+
+</table>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("QLUser", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

@@ -1,0 +1,104 @@
+﻿@model PagedList.PagedList<Car.Models.SanPham>
+@using Car.Models
+@using PagedList.Mvc;
+
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+        {
+                @input
+        }
+    else
+        {
+                @input.Substring(0, length)<text>....</text>
+        }
+}
+@{
+    ViewBag.Title = "Sanpham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="align-content:center">Quản Lý Thông Tin Sản Phẩm</h2>
+
+<p>
+    @Html.ActionLink("Thêm Mới", "Themmoisp")
+</p>
+
+
+<form action="@Url.Action("Delete1")" method="post">
+    <table class="table" border="1">
+        <tr style="align-content:center">
+            <th style="width:200px;text-align:center">Tên sản phẩm</th>
+            <th style="width:120px;text-align:center">Số lượng</th>
+            <th style="width:300px;text-align:center">Mô tả</th>
+            <th style="width:100px;text-align:center">Giá bán ($)</th>
+            <th style="width:120px;text-align:center">Ảnh bìa</th>
+            <th style="width:120px;text-align:center">Loại </th>
+            <th style="width:80px;text-align:center"></th>
+            @*<th style="width:80px;text-align:center"><input type="checkbox" id="checkall" /></th>*@
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                </td>
+                <td>
+                    @Truncate(item.MoTa, 100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaBan)
+                </td>
+                <td>
+                    <img src="@Url.Content("~/Hinhsanpham/" + item.AnhBia)" style="height:100px ; width:130px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiSP.TenLoai)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Suasp", new { id = item.MaSP })  |
+                </td>
+                <td class="text-center">
+                    <input name="dsxoa" type="checkbox" value="@item.MaSP" />
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="7"></td>
+            <td class="text-center">
+                <input type="submit" class="btn btn-danger btn-sm" value="Xóa"
+                       onclick="return confirm('Xác nhận xóa tất cả đã chọn?')" />
+            </td>
+        </tr>
+    </table>
+   
+</form>
+@*@section Scripts{
+    <script>
+            $(function(){
+                $("#checkall").change(function(){
+                    if($(this).prop("checked")==true)
+                    {
+                        $("input[name-dsxoa]").prop("checked", true);
+                    }
+                    else{
+                        $("input[name-dsxoa]").prop("checked", false);
+                    }
+                });
+            });
+    </script>
+}*@
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

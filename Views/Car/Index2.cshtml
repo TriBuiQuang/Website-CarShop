@@ -1,0 +1,199 @@
+﻿
+@using PagedList.Mvc;
+@using Car.Models
+@model PagedList.PagedList<Xe>
+@{
+    ViewBag.Title = "Index2";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>Xe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Minimal Bootstrap Theme">
+    <meta name="keywords" content="onepage,responsive,minimal,bootstrap,theme">
+    <meta name="author" content="">
+
+    <!-- CSS Files
+    ================================================== -->
+    <link rel="stylesheet" href="~/Content/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/jpreloader.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/animate.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/plugin.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.theme.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.transitions.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/style.css" type="text/css">
+    <link rel="stylesheet" href="~/demo/demo.css" type="text/css">
+
+    <!-- custom background -->
+    <link rel="stylesheet" href="~/Content/bg.css" type="text/css">
+
+    <!-- color scheme -->
+    <link rel="stylesheet" href="~/Content/color.css" type="text/css" id="colors">
+
+    <!-- load fonts -->
+    <link rel="stylesheet" href="~/fonts/font-awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="~/fonts/elegant_font/HTML_CSS/style.css" type="text/css">
+    <link rel="stylesheet" href="~/fonts/et-line-font/style.css" type="text/css">
+
+    <!-- revolution slider -->
+    <link rel="stylesheet" href="~/rs-plugin/css/settings.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/rev-settings.css" type="text/css">
+</head>
+<body>
+    <div>
+        <div id="wrapper">
+            <!-- header begin -->
+            <header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- logo begin -->
+                            <h1 id="logo">
+                                <a href="@Url.Action("Index", "Car")">
+                                    <img class="logo" src="~/images/logo.jpg" height="75px" alt="">
+                                </a>
+                            </h1>
+                            <!-- logo close -->
+                            <!-- small button begin -->
+                            <span id="menu-btn"></span>
+                            <!-- small button close -->
+                            <!-- mainmenu begin -->
+                            <nav>
+                                <ul id="mainmenu">
+                                    <li>
+                                        @*<a href="">Trang Chủ</a>*@
+                                        <a href="@Url.Action("Index", "Car")">Trang chủ</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="@Url.Action("Index2", "Car")">Xe</a>
+                                    </li>
+                                    <li><a href="@Url.Action("Index", "About")">Giới Thiệu</a></li>
+                                    <li>
+                                        <a href="">Dịch Vụ Sau Bán Hàng</a>
+                                        <ul>
+                                            @*<li><a href="">Bảo Dưỡng</a></li>*@
+                                            <li><a href="@Url.Action("Index3", "Car")">Phụ Tùng & Phụ Kiện</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- mainmenu close -->
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:right">
+                                @if (Session["TaiKhoan"] == null)
+                                {
+                                    <a class="btn-primary btn-sm" href=@Url.Action("Dangnhap","Nguoidung")>Đăng nhập</a>
+                                    <a class="btn-primary btn-sm" href=@Url.Action("Dangky","Nguoidung")>Đăng Ký</a>
+                                }
+                                else
+                                {
+
+                                    <span style="color:red">Xin Chào <a href="#" style="color:red">@Session["TaiKhoan"]</a></span>
+                                    <a class="btn-primary btn-sm" href=@Url.Action("Dangxuat","Nguoidung")>Đăng Xuất</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div id="content" class="no-bottom no-top">
+            <!-- revolution slider begin -->
+            <section id="section-slider" class="fullwidthbanner-container">
+                <img src="~/images/background/bg.png" style="width:100%; height:600px"/>
+            </section>
+        </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="spacer-single"></div>
+                        <!-- portfolio filter begin -->
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <ul id="filters" class="wow fadeInUp" data-wow-delay="0s">
+                                    <li><a href="#" data-filter="*" class="selected">All Projects</a></li>
+                                    <li><a href="#" data-filter=".1">Audi</a></li>
+                                    <li><a href="#" data-filter=".2">Lamborghini</a></li>
+                                    <li><a href="#" data-filter=".3">Ferrari</a></li>
+                                    <li><a href="#" data-filter=".8">BMW</a></li>
+                                    <li><a href="#" data-filter=".5">Porsche</a></li>
+                                    <li><a href="#" data-filter=".6">Ford</a></li>
+                                    <li><a href="#" data-filter=".7">Toyota</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- portfolio filter close -->
+                    </div>
+
+
+                    <div id="gallery" class="gallery full-gallery de-gallery pf_full_width wow fadeInUp" data-wow-delay=".3s">
+
+                        @foreach (var xe in Model)
+            {   <!-- gallery item -->
+
+
+                            <div class="item @xe.MaNSX">
+                                <div class="picframe" style="width:350px;height:200px">
+                                    <a class="simple-ajax-popup-align-top" href="~/Car/Details1/@xe.Maxe">
+                                        <span class="overlay">
+                                            <span class="pf_text">
+                                                <span class="project-name">@xe.Tenxe</span>
+                                            </span>
+                                        </span>
+                                    </a>
+                                    <img src="~/Hinhsanpham/@xe.Anh" alt="@xe.Tenxe" style="width:350px;height:200px" />
+                                </div>
+                            </div>
+                    <!-- close gallery item -->
+                        }
+                    </div>
+                    <div id="loader-area">
+                        <div class="project-load"></div>
+                    </div>
+
+                </div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        <div class="MenuTrang">
+            @Html.PagedListPager(Model, page => Url.Action("Index2", new { page = page }))
+        </div>
+        <style>
+            .MenuTrang li {
+                display: inline;
+            }
+        </style>
+        </div>
+        <!-- Javascript Files
+        ================================================== -->
+        <script src="~/Scripts/jquery.min.js"></script>
+        <script src="~/Scripts/jpreLoader.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/jquery.isotope.min.js"></script>
+        <script src="~/Scripts/easing.js"></script>
+        <script src="~/Scripts/jquery.flexslider-min.js"></script>
+        <script src="~/Scripts/jquery.scrollto.js"></script>
+        <script src="~/Scripts/owl.carousel.js"></script>
+        <script src="~/Scripts/jquery.countTo.js"></script>
+        <script src="~/Scripts/classie.js"></script>
+        <script src="~/Scripts/video.resize.js"></script>
+        <script src="~/Scripts/validation.js"></script>
+        <script src="~/Scripts/wow.min.js"></script>
+        <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+        <script src="~/Scripts/enquire.min.js"></script>
+        <script src="~/Scripts/designesia.js"></script>
+        <script src="demo/demo.js"></script>
+
+        <!-- SLIDER REVOLUTION SCRIPTS  -->
+        <script type="text/javascript" src="~/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+        <script type="text/javascript" src="~/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+</body>
+</html>

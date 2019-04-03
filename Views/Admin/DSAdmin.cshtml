@@ -1,0 +1,76 @@
+﻿@model PagedList.PagedList<Car.Models.ADMIN>
+@using Car.Models
+@using PagedList.Mvc;
+
+@helper Truncate(string input, int length)
+{
+if (input.Length < length)
+{
+        @input
+}
+else
+{
+        @input.Substring(0, length)<text>....</text>
+}
+}
+@{
+    ViewBag.Title = "DSAdmin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="align-content:center">Danh Sách Admin</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Themadmin")
+</p>
+<p>
+    @using (Html.BeginForm("DSAdmin", "Admin", FormMethod.Get))
+    {
+        <b>Search:</b>@Html.TextBox("search")<input type="submit" value="Tìm kiếm" />
+    }
+</p>
+<table class="table" border="1">
+    <tr style="align-content:center">
+        <th style="text-align:center" width="20%">Họ Tên</th>
+        <th style="text-align:center" width="8%">Account</th>
+        <th style="text-align:center">Email</th>
+        <th style="text-align:center">Điện Thoại</th>
+        <th>Quyền</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Taikhoan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td class="text-center">
+                @Html.ActionLink("Sửa","Suaadmin","Admin",new { id=item.MaAD}) |
+                @Html.ActionLink("Xoá", "Xoaadmin", "Admin", new { id = item.MaAD })
+            </td>
+        </tr>
+    }
+</table>
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

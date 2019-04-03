@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Car.Models.GiaoDich>
+
+@{
+    ViewBag.Title = "QLGiaodich";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QLGiaodich</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayMua)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaKH)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayMua)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaKH)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "SuaGiaodich", new { id=item.MaGD }) |
+            @Html.ActionLink("Delete", "XoaGiaodich", new { id=item.MaGD })
+        </td>
+    </tr>
+}
+
+</table>
